@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 12345
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+module:
+  bot-task-pool-size: 4
+  scheduler-task-pool-size: 1
+  polling-interval-ms: 1000
+  termination-sec: 30
+  queue-capacity: 100
+
+telegram:
+  base-url: "https://api.telegram.org"
+  bot-token: "8228397851:AAFYcQpxIbGE1buq9HeEq8ywS8NWUtKad9U"
+  # параметры http-клиентов
+  long-client-settings:
+    connect-timeout-ms: 3000
+    response-timeout-ms: 35000
+  short-client-settings:
+    connect-timeout-ms: 3000
+    response-timeout-ms: 5000
+  # параметры getUpdates
+  polling-queries:
+    timeout-sec: 30
+    limit: 100
+  # пути к методам API
+  paths:
+    get-updates-path: "/bot${telegram.bot-token}/getUpdates"
+    get-chat-member: "/bot${telegram.bot-token}/getChatMember"
+    send-message: "/bot${telegram.bot-token}/sendMessage"
+    edit-message-text: "/bot${telegram.bot-token}/editMessageText"
+    answer-callback: "/bot${telegram.bot-token}/answerCallbackQuery"
+
+
+

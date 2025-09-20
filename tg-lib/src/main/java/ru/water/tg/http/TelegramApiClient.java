@@ -138,7 +138,6 @@ public class TelegramApiClient implements TelegramApi {
                         .queryParam("user_id", userId)
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<ChatMember>>() {})
                 .onErrorMap(this::mapToDomainException)
