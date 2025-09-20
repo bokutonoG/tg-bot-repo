@@ -10,7 +10,6 @@ import ru.water.telegram.bot.logger.Messages;
 import ru.water.tg.api.TelegramApi;
 import ru.water.tg.types.updates.Update;
 
-import java.security.MessageDigestSpi;
 
 
 @RequiredArgsConstructor

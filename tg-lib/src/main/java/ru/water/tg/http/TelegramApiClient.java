@@ -51,7 +51,7 @@ public class TelegramApiClient implements TelegramApi {
                 .uri(telegramProperties.paths().getUpdatesPath(), uriBuilder -> uriBuilder
                         .queryParam(LONG_POLLING_TIMEOUT_PARAM_KEY, telegramProperties.pollingQueries().timeoutSec())
                         .queryParam(LIMIT_PARAM_KEY, telegramProperties.pollingQueries().limit())
-                        .queryParamIfPresent(OFFSET_PARAM_KEY, Optional.of(offset))
+                        .queryParamIfPresent(OFFSET_PARAM_KEY, Optional.ofNullable(offset))
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
@@ -164,7 +164,7 @@ public class TelegramApiClient implements TelegramApi {
             log.info(Messages.EMPTY_RESPONSE.message, response);
             throw new TelegramResponseException(Messages.BASE_TG_CHECK_ERROR.message);
         }
-
+        log.info(Messages.SUCCESS_CHECK_TG_RESPONSE.message);
         return response.result();
     }
     private static <T> void requireOkOrThrow(ApiResponse<T> response) {
@@ -176,6 +176,7 @@ public class TelegramApiClient implements TelegramApi {
             log.error(Messages.INVALID_RESPONSE.message, response.errorCode(), response.description());
             throw new TelegramResponseException(Messages.BASE_TG_CHECK_ERROR.message);
         }
+        log.info(Messages.SUCCESS_CHECK_TG_RESPONSE.message);
     }
     private static <E> List<E> listOrEmpty(ApiResponse<List<E>> response) {
         if (response == null) {
@@ -190,6 +191,7 @@ public class TelegramApiClient implements TelegramApi {
             log.info(Messages.EMPTY_RESPONSE.message, response);
             return Collections.emptyList();
         }
+        log.info(Messages.SUCCESS_CHECK_TG_RESPONSE.message);
         return response.result();
     }
     private Throwable mapToDomainException(Throwable throwable) {

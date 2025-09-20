@@ -8,10 +8,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import ru.water.telegram.bot.config.properties.ModuleProperties;
+import ru.water.tg.config.properties.TelegramProperties;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableConfigurationProperties(ModuleProperties.class)
+@EnableConfigurationProperties({ModuleProperties.class, TelegramProperties.class})
 @EnableAsync
 public class Application {
     public static void main(String[] args) {

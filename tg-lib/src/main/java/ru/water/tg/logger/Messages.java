@@ -6,12 +6,14 @@ public enum Messages {
     RESPONSE_RECEIVED("Получен ответ от телеграмм: {}"),
     ERROR_RECEIVED("Получена ошибка от телеграмм: {}"),
 
-    CHECK_TG_RESPONSE("Проверяем ответ от телеграмма"),
+    CHECK_TG_RESPONSE("Начинаем проверять ответ"),
+    SUCCESS_CHECK_TG_RESPONSE("Успешно завершили проверять ответ, начинаем обработку"),
 
     BASE_TG_CHECK_ERROR("Телеграмм ответ не прошел проверку"),
     INVALID_RESPONSE("Получен некорректный ответ: code {}, description {}"),
     EMPTY_RESPONSE("Получен ответ без апдейтов, {}"),
     NULL_RESPONSE("Получен пустой ответ"),
+
     ;
 
 

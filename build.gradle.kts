@@ -1,23 +1,41 @@
 plugins {
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.5"
-    java
+    id("java")
 }
 
-group = "ru.water"
-version = "0.1.0"
+group = "ru.water.telegram"
+version = "0.0.1-SNAPSHOT"
 
 repositories { mavenCentral() }
 
 dependencies {
     implementation(project(":tg-lib"))
-    implementation("org.springframework.boot:spring-boot-starter")
+
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-database-postgresql")
+    runtimeOnly("org.postgresql:postgresql")
+
+    // валидация для @ConfigurationProperties @Validated
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+    // lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    // метаданные пропертей для IDE
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-java { toolchain { languageVersion.set(JavaLanguageVersion.of(17)) } }
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
-tasks.test { useJUnitPlatform() }
+tasks.test {
+    useJUnitPlatform()
+}

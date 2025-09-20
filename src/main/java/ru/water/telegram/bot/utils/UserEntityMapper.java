@@ -10,6 +10,7 @@ public class UserEntityMapper {
         UserEntity userEntity = new UserEntity();
 
         userEntity.setTelegramId(user.userId());
+        userEntity.setUsername(user.username());
         userEntity.setPremium(false);
         userEntity.setSubscribed(false);
         userEntity.setQuota(0);

@@ -11,5 +11,4 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByTelegramId(long telegramId);
     boolean existsByTelegramId(long telegramId);
-    UserEntity updateTelegramUser(UserEntity telegramUser);
 }

@@ -1,34 +1,31 @@
 plugins {
-    `java-library`
-    id("io.spring.dependency-management") version "1.1.5"
+    id("java-library")
 }
 
-group = "ru.water"
-version = "0.1.0"
+group = "ru.water.telegram"
+version = "0.0.1-SNAPSHOT"
 
-repositories { mavenCentral() }
+repositories {
+    mavenCentral()
+}
 
 dependencies {
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:3.3.2"))
+    // --- один стартер, чтобы закрыть WebClient + Reactor Netty + Jackson ---
+    compileOnly("org.springframework.boot:spring-boot-starter-webflux:3.3.2")
 
-    implementation("org.springframework:spring-context")
-    implementation("org.springframework.boot:spring-boot")
-    implementation("org.springframework.boot:spring-boot-autoconfigure")
-    api("org.slf4j:slf4j-api")
+    // --- проперти + валидация пропертей (аннотации @ConfigurationProperties/@Validated) ---
+    compileOnly("org.springframework.boot:spring-boot-autoconfigure:3.3.2")
+    compileOnly("org.springframework.boot:spring-boot-starter-validation:3.3.2")
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-    testCompileOnly("org.projectlombok:lombok")
-    testAnnotationProcessor("org.projectlombok:lombok")
-    testRuntimeOnly("ch.qos.logback:logback-classic")
-    api("org.springframework:spring-webflux")          // WebClient
-    implementation("io.projectreactor.netty:reactor-netty")
-    implementation("com.fasterxml.jackson.core:jackson-databind")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.3")
-    testImplementation("org.mockito:mockito-core:5.12.0")
+    // --- Lombok ---
+    compileOnly("org.projectlombok:lombok:1.18.32")
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
+
+    // --- метаданные для @ConfigurationProperties (чтобы IDE резолвила YAML-ключи) ---
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.3.2")
 }
 
-java { toolchain { languageVersion.set(JavaLanguageVersion.of(17)) } }
-
-tasks.test { useJUnitPlatform() }
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
